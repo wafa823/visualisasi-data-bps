@@ -93,9 +93,20 @@ def apply_custom_css(theme: str):
                 border-radius: 8px; font-weight: 600;
                 transition: all 0.2s;
             }
+            [data-testid="stDownloadButton"] > button * {
+                color: #1e293b !important;
+            }
             [data-testid="stDownloadButton"] > button:hover {
                 background: linear-gradient(135deg, #f1f5f9, #e2e8f0) !important;
                 box-shadow: 0 0 12px rgba(0,0,0,0.06) !important;
+                color: #0f172a !important;
+            }
+            [data-testid="stDownloadButton"] > button:hover * {
+                color: #0f172a !important;
+            }
+
+            /* ── Expander header ── */
+            [data-testid="stExpander"] summary span {
                 color: #0f172a !important;
             }
 
