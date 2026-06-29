@@ -1,7 +1,7 @@
 # pyrefly: ignore [missing-import]
 import streamlit as st
 
-def apply_custom_css(theme: str = "Dark Mode"):
+def apply_custom_css():
     """Terapkan semua CSS kustom untuk mempercantik UI dan menambahkan animasi (Dark Mode)."""
     st.markdown("""
     <style>

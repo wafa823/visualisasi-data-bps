@@ -18,7 +18,7 @@ LAYOUT_BASE = dict(
     hoverlabel=dict(bgcolor="#1e2a3a", font_color="#e0eaff", bordercolor="#4a9eff"),
 )
 
-def plot_line_chart(df_filtered: pd.DataFrame, rentang_tahun: tuple[int, int], theme: str = "Dark Mode"):
+def plot_line_chart(df_filtered: pd.DataFrame, rentang_tahun: tuple[int, int]):
     """Membuat Line Chart tren pengangguran (Dark Mode)."""
     fig = px.line(
         df_filtered,
@@ -41,7 +41,7 @@ def plot_line_chart(df_filtered: pd.DataFrame, rentang_tahun: tuple[int, int], t
     )
     return fig
 
-def plot_horizontal_bar(df_filtered: pd.DataFrame, rentang_tahun: tuple[int, int], theme: str = "Dark Mode"):
+def plot_horizontal_bar(df_filtered: pd.DataFrame, rentang_tahun: tuple[int, int]):
     """Membuat Horizontal Bar Chart untuk perbandingan kategori (Dark Mode)."""
     df_bar = (
         df_filtered.groupby("Pendidikan", as_index=False)["Jumlah Pengangguran"]
@@ -70,7 +70,7 @@ def plot_horizontal_bar(df_filtered: pd.DataFrame, rentang_tahun: tuple[int, int
     )
     return fig
 
-def plot_treemap(df_filtered: pd.DataFrame, rentang_tahun: tuple[int, int], theme: str = "Dark Mode"):
+def plot_treemap(df_filtered: pd.DataFrame, rentang_tahun: tuple[int, int]):
     """Membuat Treemap untuk komposisi kontribusi pengangguran (Dark Mode)."""
     df_tree = (
         df_filtered.groupby("Pendidikan", as_index=False)["Jumlah Pengangguran"].sum()
@@ -97,7 +97,7 @@ def plot_treemap(df_filtered: pd.DataFrame, rentang_tahun: tuple[int, int], them
     )
     return fig
 
-def plot_bubble_scatter(df_filtered: pd.DataFrame, rentang_tahun: tuple[int, int], theme: str = "Dark Mode"):
+def plot_bubble_scatter(df_filtered: pd.DataFrame, rentang_tahun: tuple[int, int]):
     """Membuat Bubble Scatter plot kepadatan pengangguran (Dark Mode)."""
     fig = px.scatter(
         df_filtered,
