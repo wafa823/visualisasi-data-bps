@@ -16,11 +16,10 @@ st.set_page_config(
     page_title="Dashboard Pengangguran BPS",
     page_icon="📊",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
 )
 
-# ── Terapkan CSS Kustom ──────────────────────────────────────────────────────
-apply_custom_css()
+
 
 # ── Muat Daftar Dataset ──────────────────────────────────────────────────────
 DATA_DIR  = os.path.join(os.path.dirname(__file__), "Data")
@@ -33,6 +32,10 @@ if not csv_files:
 # ── Sidebar: Panel Filter & Kontrol ──────────────────────────────────────────
 with st.sidebar:
     st.markdown("## 🎛️ Panel Kontrol")
+    st.markdown("---")
+    
+    # Pilih Tema
+    theme = st.selectbox("🎨 Pilih Tema:", ["Dark Mode", "Light Mode"])
     st.markdown("---")
 
     # Pilih file
@@ -85,6 +88,9 @@ with st.sidebar:
     st.markdown("---")
     st.caption("📂 Data: BPS — Pengangguran Terbuka 1986–2024")
 
+# ── Terapkan CSS Kustom ──────────────────────────────────────────────────────
+apply_custom_css(theme)
+
 
 # ── Filter Data Sesuai Input User ────────────────────────────────────────────
 df_filtered = df_long[
@@ -110,52 +116,28 @@ terendah_nama    = tertinggi_series.idxmin() if not tertinggi_series.empty else 
 st.markdown(f"""
 <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:18px 0 24px 0;">
 
-  <div class="metric-card" style="background:linear-gradient(135deg,#0f2035,#132840);
-              border:1px solid #1e3a5c; border-top:3px solid #4a9eff;
-              border-radius:12px; padding:18px 20px;">
-    <div style="font-size:0.72rem;color:#6a9abf;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;">
-      📌 Total Pengangguran
-    </div>
-    <div class="metric-value" style="font-size:1.75rem;font-weight:800;color:#dff0ff;line-height:1.1;">
-      {fmt_number(total_kasus)}
-    </div>
-    <div style="font-size:0.73rem;color:#4a7aa0;margin-top:5px;">Kumulatif semua periode &amp; kategori</div>
+  <div class="metric-card metric-card-blue">
+    <div class="metric-label">📌 Total Pengangguran</div>
+    <div class="metric-value">{fmt_number(total_kasus)}</div>
+    <div class="metric-sub">Kumulatif semua periode &amp; kategori</div>
   </div>
 
-  <div class="metric-card" style="background:linear-gradient(135deg,#0f2035,#132840);
-              border:1px solid #1e3a5c; border-top:3px solid #3ecf8e;
-              border-radius:12px; padding:18px 20px;">
-    <div style="font-size:0.72rem;color:#6a9abf;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;">
-      📅 Rata-rata per Tahun
-    </div>
-    <div class="metric-value" style="font-size:1.75rem;font-weight:800;color:#dff0ff;line-height:1.1;">
-      {fmt_number(rata_per_tahun)}
-    </div>
-    <div style="font-size:0.73rem;color:#4a7aa0;margin-top:5px;">Rentang {rentang_tahun[0]} – {rentang_tahun[1]}</div>
+  <div class="metric-card metric-card-green">
+    <div class="metric-label">📅 Rata-rata per Tahun</div>
+    <div class="metric-value">{fmt_number(rata_per_tahun)}</div>
+    <div class="metric-sub">Rentang {rentang_tahun[0]} – {rentang_tahun[1]}</div>
   </div>
 
-  <div class="metric-card" style="background:linear-gradient(135deg,#0f2035,#132840);
-              border:1px solid #1e3a5c; border-top:3px solid #f4a44a;
-              border-radius:12px; padding:18px 20px;">
-    <div style="font-size:0.72rem;color:#6a9abf;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;">
-      🔺 Kategori Tertinggi
-    </div>
-    <div style="font-size:1.1rem;font-weight:700;color:#dff0ff;line-height:1.3;margin-top:2px;">
-      {tertinggi_nama}
-    </div>
-    <div style="font-size:0.73rem;color:#f4a44a;margin-top:5px;">Total: {fmt_number(tertinggi_val)}</div>
+  <div class="metric-card metric-card-orange">
+    <div class="metric-label">🔺 Kategori Tertinggi</div>
+    <div class="metric-value-text">{tertinggi_nama}</div>
+    <div class="metric-sub">Total: {fmt_number(tertinggi_val)}</div>
   </div>
 
-  <div class="metric-card" style="background:linear-gradient(135deg,#0f2035,#132840);
-              border:1px solid #1e3a5c; border-top:3px solid #a78bfa;
-              border-radius:12px; padding:18px 20px;">
-    <div style="font-size:0.72rem;color:#6a9abf;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;">
-      🔻 Kategori Terendah
-    </div>
-    <div style="font-size:1.1rem;font-weight:700;color:#dff0ff;line-height:1.3;margin-top:2px;">
-      {terendah_nama}
-    </div>
-    <div style="font-size:0.73rem;color:#a78bfa;margin-top:5px;">Kontribusi terkecil di periode ini</div>
+  <div class="metric-card metric-card-purple">
+    <div class="metric-label">🔻 Kategori Terendah</div>
+    <div class="metric-value-text">{terendah_nama}</div>
+    <div class="metric-sub">Kontribusi terkecil di periode ini</div>
   </div>
 
 </div>
@@ -246,13 +228,13 @@ with tab_bersih:
     # Render Grafik Sesuai Varian Terpilih
     fig = None
     if varian == "Line Chart (Tren)":
-        fig = plot_line_chart(df_filtered, rentang_tahun)
+        fig = plot_line_chart(df_filtered, rentang_tahun, theme)
     elif varian == "Horizontal Bar Chart (Perbandingan)":
-        fig = plot_horizontal_bar(df_filtered, rentang_tahun)
+        fig = plot_horizontal_bar(df_filtered, rentang_tahun, theme)
     elif varian == "Treemap (Komposisi)":
-        fig = plot_treemap(df_filtered, rentang_tahun)
+        fig = plot_treemap(df_filtered, rentang_tahun, theme)
     else:
-        fig = plot_bubble_scatter(df_filtered, rentang_tahun)
+        fig = plot_bubble_scatter(df_filtered, rentang_tahun, theme)
 
     if fig:
         st.plotly_chart(fig, use_container_width=True)
