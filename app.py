@@ -111,7 +111,7 @@ tertinggi_val    = tertinggi_series.max()    if not tertinggi_series.empty else 
 terendah_nama    = tertinggi_series.idxmin() if not tertinggi_series.empty else "-"
 
 st.markdown(f"""
-<div style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:18px 0 24px 0;">
+<div class="metrics-grid">
 
   <div class="metric-card metric-card-blue">
     <div class="metric-label">📌 Total Pengangguran</div>

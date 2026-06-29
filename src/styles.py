@@ -9,6 +9,14 @@ def apply_custom_css():
 
         html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
 
+        /* Grid Metrik Responsif */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin: 18px 0 24px 0;
+        }
+
         /* ── HTML Metric Cards (Gelap) ── */
         .metric-card {
             background: linear-gradient(135deg, #0f2035, #132840) !important;
