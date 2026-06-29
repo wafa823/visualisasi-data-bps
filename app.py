@@ -33,10 +33,7 @@ if not csv_files:
 with st.sidebar:
     st.markdown("## 🎛️ Panel Kontrol")
     st.markdown("---")
-    
-    # Pilih Tema
-    theme = st.selectbox("🎨 Pilih Tema:", ["Dark Mode", "Light Mode"])
-    st.markdown("---")
+
 
     # Pilih file
     selected_file = st.selectbox("📁 Pilih File CSV:", csv_files)
@@ -89,7 +86,7 @@ with st.sidebar:
     st.caption("📂 Data: BPS — Pengangguran Terbuka 1986–2024")
 
 # ── Terapkan CSS Kustom ──────────────────────────────────────────────────────
-apply_custom_css(theme)
+apply_custom_css()
 
 
 # ── Filter Data Sesuai Input User ────────────────────────────────────────────
@@ -228,13 +225,13 @@ with tab_bersih:
     # Render Grafik Sesuai Varian Terpilih
     fig = None
     if varian == "Line Chart (Tren)":
-        fig = plot_line_chart(df_filtered, rentang_tahun, theme)
+        fig = plot_line_chart(df_filtered, rentang_tahun)
     elif varian == "Horizontal Bar Chart (Perbandingan)":
-        fig = plot_horizontal_bar(df_filtered, rentang_tahun, theme)
+        fig = plot_horizontal_bar(df_filtered, rentang_tahun)
     elif varian == "Treemap (Komposisi)":
-        fig = plot_treemap(df_filtered, rentang_tahun, theme)
+        fig = plot_treemap(df_filtered, rentang_tahun)
     else:
-        fig = plot_bubble_scatter(df_filtered, rentang_tahun, theme)
+        fig = plot_bubble_scatter(df_filtered, rentang_tahun)
 
     if fig:
         st.plotly_chart(fig, use_container_width=True)
