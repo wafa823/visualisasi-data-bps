@@ -148,5 +148,47 @@ def apply_custom_css():
         [data-testid="stExpander"]:hover {
             border-left-color: #4a9eff;
         }
+
+        /* ── Chart Section Headers ── */
+        .chart-section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 8px 0 6px 0;
+            animation: fadeSlideUp 0.5s ease both;
+        }
+        .chart-section-title {
+            font-size: 1.2rem !important;
+            font-weight: 700 !important;
+            color: #dff0ff !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        .chart-badge {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        .badge-blue   { background: rgba(74,158,255,0.15); color: #4a9eff; border: 1px solid rgba(74,158,255,0.35); }
+        .badge-green  { background: rgba(62,207,142,0.15); color: #3ecf8e; border: 1px solid rgba(62,207,142,0.35); }
+        .badge-orange { background: rgba(244,164,74,0.15); color: #f4a44a; border: 1px solid rgba(244,164,74,0.35); }
+        .badge-purple { background: rgba(167,139,250,0.15); color: #a78bfa; border: 1px solid rgba(167,139,250,0.35); }
+        .badge-teal   { background: rgba(45,212,191,0.15); color: #2dd4bf; border: 1px solid rgba(45,212,191,0.35); }
+
+        .chart-desc {
+            font-size: 0.88rem;
+            color: #6a9abf;
+            line-height: 1.65;
+            margin: 4px 0 16px 0;
+            max-width: 820px;
+        }
+        .chart-desc strong {
+            color: #9ec8f0;
+        }
     </style>
     """, unsafe_allow_html=True)
